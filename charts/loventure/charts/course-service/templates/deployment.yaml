@@ -32,7 +32,7 @@ spec:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
           livenessProbe:
             httpGet:
-              path: /api/course/actuator/health
+              path: /api/courses/actuator/health
               port: {{ .Values.service.targetPort }}
             initialDelaySeconds: 90  # Course Service 시작 시간 고려
             periodSeconds: 30
@@ -41,7 +41,7 @@ spec:
             successThreshold: 1
           readinessProbe:
             httpGet:
-              path: /api/course/actuator/health
+              path: /api/courses/actuator/health
               port: {{ .Values.service.targetPort }}
             initialDelaySeconds: 90  # Course Service 시작 시간 고려
             periodSeconds: 10
