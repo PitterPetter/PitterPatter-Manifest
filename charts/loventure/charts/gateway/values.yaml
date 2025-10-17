@@ -23,7 +23,7 @@ resources:
 # Additional required settings for gateway subchart
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: ""
+fullnameOverride: "loventure-prod-gateway"
 
 serviceAccount:
   create: true
