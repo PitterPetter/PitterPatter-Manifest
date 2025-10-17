@@ -18,12 +18,25 @@ spec:
       releaseName: loventure
       valueFiles:
         - values.yaml
-      # GCS 설정 (ArgoCD UI에서 Parameters 탭에서 설정):
-      # parameters:
-      #   - name: gcs.bucketName
-      #     value: "pit_bucket_prod"
-      #   - name: gcs.projectId
-      #     value: "pitterpetter-2"
+      # DB 접속 정보 (ArgoCD UI Parameters 탭에서 설정)
+      parameters:
+        - name: deployment.env[1].name
+          value: ""
+        - name: deployment.env[1].value
+          value: ""
+        - name: deployment.env[2].name
+          value: ""
+        - name: deployment.env[2].value
+          value: ""
+        - name: deployment.env[3].name
+          value: ""
+        - name: deployment.env[3].value
+          value: ""
+      # GCS 설정은 values.yaml에 이미 있음
+      # - name: gcs.bucketName
+      #   value: "pit_bucket_prod"
+      # - name: gcs.projectId
+      #   value: "pitterpetter-2"
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app

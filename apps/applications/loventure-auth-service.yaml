@@ -18,6 +18,20 @@ spec:
       releaseName: loventure
       valueFiles:
         - values.yaml
+      # DB 접속 정보 (ArgoCD UI Parameters 탭에서 설정)
+      parameters:
+        - name: deployment.env[1].name
+          value: ""
+        - name: deployment.env[1].value
+          value: ""
+        - name: deployment.env[2].name
+          value: ""
+        - name: deployment.env[2].value
+          value: ""
+        - name: deployment.env[3].name
+          value: ""
+        - name: deployment.env[3].value
+          value: ""
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app
