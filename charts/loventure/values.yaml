@@ -274,4 +274,4 @@ ai-service:
 territory-service:
   deployment:
     image:
-      tag: c54c692
+      tag: 870e641
