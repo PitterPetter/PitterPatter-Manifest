@@ -47,4 +47,4 @@ global:
   imageRegistry: docker.io/pitterpetter
   imagePullPolicy: IfNotPresent
   namespace: loventure-app
-  environment: production
+  environment: prod
