@@ -23,3 +23,6 @@ dependencies:
   - name: ai-service
     version: "0.1.0"
     repository: "file://charts/ai-service"
+  - name: territory-service
+    version: "0.1.0"
+    repository: "file://charts/territory-service"
