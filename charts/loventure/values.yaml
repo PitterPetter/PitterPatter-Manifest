@@ -265,7 +265,49 @@ ai-service:
       - name: PORT
         value: "8000"
       - name: SECRET_KEY
-        value: "" # Set via ArgoCD UI: ai-service.deployment.env[2].value
+        value: ""  # Set via ArgoCD UI: ai-service.deployment.env[2].value
+        
+# Territory Service Configuration
+territory-service:
+  service:
+    name: territory-service
+    type: ClusterIP
+    port: 8084
+    targetPort: 8084
+  deployment:
+    replicaCount: 1
+    image:
+      repository: territory-service
+      tag: "latest"
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    env:
+      - name: SERVER_PORT
+        value: "8084"
+  postgres:
+    enabled: true
+    image:
+      registry: docker.io
+      repository: postgres
+      tag: "14"
+    service:
+      port: 5432
+    persistence:
+      enabled: true
+      size: 10Gi
+      storageClass: ""
+      accessMode: ReadWriteOnce
+    auth:
+      postgresPassword: "" # Set via ArgoCD UI: territory-service.postgres.auth.postgresPassword
+      database: "territory"
+      username: "root"
+      
 # gateway-service:
 #   deployment:
 #     image:

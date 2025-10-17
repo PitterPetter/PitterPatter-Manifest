@@ -1,0 +1,160 @@
+{{- if .Values.postgres.enabled }}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "territory-service.fullname" . }}-postgres
+  labels:
+    {{- include "territory-service.labels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
+spec:
+  serviceName: {{ include "territory-service.fullname" . }}-postgres-headless
+  replicas: 1
+  updateStrategy:
+    type: OnDelete
+  selector:
+    matchLabels:
+      {{- include "territory-service.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: postgres
+  template:
+    metadata:
+      labels:
+        {{- include "territory-service.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: postgres
+    spec:
+      initContainers:
+        - name: postgres-init
+          image: "{{ if .Values.postgres.image.registry }}{{ .Values.postgres.image.registry }}/{{ end }}{{ .Values.postgres.image.repository }}:{{ .Values.postgres.image.tag }}"
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          command: ["/bin/bash"]
+          args:
+            - -c
+            - |
+              # PostgreSQL 데이터 디렉토리 생성 및 권한 설정
+              mkdir -p /var/lib/postgresql/data
+              chown -R postgres:postgres /var/lib/postgresql
+              chmod 700 /var/lib/postgresql/data
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql
+      containers:
+        - name: postgres
+          image: "{{ if .Values.postgres.image.registry }}{{ .Values.postgres.image.registry }}/{{ end }}{{ .Values.postgres.image.repository }}:{{ .Values.postgres.image.tag }}"
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - name: postgres
+              containerPort: {{ .Values.postgres.service.port }}
+              protocol: TCP
+          env:
+            - name: POSTGRES_DB
+              value: {{ .Values.postgres.auth.database | quote }}
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres.auth.username | quote }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "territory-service.fullname" . }}-postgres-secret
+                  key: postgres-password
+            - name: POSTGRES_INITDB_ARGS
+              value: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+            - name: PGDATA
+              value: /var/lib/postgresql/data
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql
+          livenessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - "pg_isready -U {{ .Values.postgres.auth.username }} -d {{ .Values.postgres.auth.database }}"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - "pg_isready -U {{ .Values.postgres.auth.username }} -d {{ .Values.postgres.auth.database }}"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+      volumes:
+        {{- if .Values.postgres.persistence.enabled }}
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-storage-{{ include "territory-service.fullname" . }}-postgres-0
+        {{- else }}
+        - name: postgres-storage
+          emptyDir: {}
+        {{- end }}
+  {{- if .Values.postgres.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-storage
+        labels:
+          {{- include "territory-service.labels" . | nindent 10 }}
+          app.kubernetes.io/component: postgres
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.postgres.persistence.size | quote }}
+        {{- if .Values.postgres.persistence.storageClass }}
+        storageClassName: {{ .Values.postgres.persistence.storageClass | quote }}
+        {{- end }}
+  {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "territory-service.fullname" . }}-postgres-headless
+  labels:
+    {{- include "territory-service.labels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - port: {{ .Values.postgres.service.port }}
+      targetPort: {{ .Values.postgres.service.port }}
+      protocol: TCP
+      name: postgres
+  selector:
+    {{- include "territory-service.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "territory-service.fullname" . }}-postgres
+  labels:
+    {{- include "territory-service.labels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.postgres.service.port }}
+      targetPort: {{ .Values.postgres.service.port }}
+      protocol: TCP
+      name: postgres
+  selector:
+    {{- include "territory-service.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "territory-service.fullname" . }}-postgres-secret
+  labels:
+    {{- include "territory-service.labels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
+type: Opaque
+data:
+  postgres-password: {{ .Values.postgres.auth.postgresPassword | b64enc | quote }}
+{{- end }}
+
