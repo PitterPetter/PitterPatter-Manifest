@@ -27,6 +27,14 @@ spec:
             - name: {{ .name }}
               value: {{ .value | quote }}
             {{- end }}
+            {{- if .Values.gcs }}
+            - name: GCS_BUCKET_NAME
+              value: {{ .Values.gcs.bucketName | quote }}
+            - name: GCS_CREDENTIALS_PATH
+              value: {{ .Values.gcs.credentialsPath | quote }}
+            - name: GCS_PROJECT_ID
+              value: {{ .Values.gcs.projectId | quote }}
+            {{- end }}
           {{- with .Values.deployment.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}

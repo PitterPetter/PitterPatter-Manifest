@@ -18,6 +18,12 @@ spec:
       releaseName: loventure
       valueFiles:
         - values.yaml
+      # GCS 설정 (ArgoCD UI에서 Parameters 탭에서 설정):
+      # parameters:
+      #   - name: gcs.bucketName
+      #     value: "pit_bucket_prod"
+      #   - name: gcs.projectId
+      #     value: "pitterpetter-2"
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app

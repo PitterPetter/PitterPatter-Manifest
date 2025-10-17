@@ -31,6 +31,11 @@ deployment:
       mountPath: /etc/gcp
       readOnly: true
 
+gcs:
+  bucketName: "" # Set via ArgoCD Parameters
+  credentialsPath: "/etc/gcp/key.json"
+  projectId: "" # Set via ArgoCD Parameters
+
 postgres:
   enabled: true
   image:
