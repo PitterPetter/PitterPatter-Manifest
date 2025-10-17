@@ -90,7 +90,7 @@ gateway:
   # Gateway deployment configuration with latest image tag from main
   deployment:
     image:
-      tag: 7fdaaaa
+      tag: "423013c"
 # Auth Service Configuration
 auth-service:
   service:
@@ -102,7 +102,7 @@ auth-service:
     replicaCount: 1
     image:
       repository: auth-service
-      tag: "ab5525f"
+      tag: "31b5ea9"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -142,7 +142,7 @@ content-service:
     replicaCount: 1
     image:
       repository: content-service
-      tag: "9d41f4a"
+      tag: "8056f67"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -182,7 +182,7 @@ course-service:
     replicaCount: 1
     image:
       repository: course-service
-      tag: "2dfefb3"
+      tag: "8a235b8"
       pullPolicy: IfNotPresent
     env:
       - name: SERVER_PORT
@@ -234,11 +234,11 @@ redis:
         memory: 128Mi
     env:
       - name: REDIS_PASSWORD
-        value: ""  # 캐싱용이므로 비밀번호 없음
+        value: "" # 캐싱용이므로 비밀번호 없음
   persistence:
-    enabled: false  # 캐싱용이므로 영구 저장 불필요
+    enabled: false # 캐싱용이므로 영구 저장 불필요
   auth:
-    enabled: false  # 캐싱용이므로 인증 불필요
+    enabled: false # 캐싱용이므로 인증 불필요
 # AI Service Configuration
 ai-service:
   service:
@@ -250,7 +250,7 @@ ai-service:
     replicaCount: 1
     image:
       repository: ai-service
-      tag: "e4e286f"
+      tag: "ba21852"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -266,6 +266,7 @@ ai-service:
         value: "8000"
       - name: SECRET_KEY
         value: ""  # Set via ArgoCD UI: ai-service.deployment.env[2].value
+        
 # Territory Service Configuration
 territory-service:
   service:
@@ -306,7 +307,13 @@ territory-service:
       postgresPassword: "" # Set via ArgoCD UI: territory-service.postgres.auth.postgresPassword
       database: "territory"
       username: "root"
+      
 # gateway-service:
 #   deployment:
 #     image:
 #       tag: cb446c3
+
+territory-service:
+  deployment:
+    image:
+      tag: 870e641
