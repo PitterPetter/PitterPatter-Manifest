@@ -293,8 +293,8 @@ territory-service:
     enabled: true
     image:
       registry: docker.io
-      repository: postgres
-      tag: "14"
+      repository: postgis/postgis
+      tag: "14-3.4"  # PostgreSQL 14 + PostGIS 3.4 (with GeoJSON support)
     service:
       port: 5432
     persistence:
