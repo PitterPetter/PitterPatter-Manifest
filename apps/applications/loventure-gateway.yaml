@@ -7,6 +7,7 @@ metadata:
     environment: production
     project: loventure
     service: gateway
+    priority: "3"  # 마지막 배포 (라우팅 서비스)
 spec:
   project: default
   source:

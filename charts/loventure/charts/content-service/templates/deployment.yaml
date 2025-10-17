@@ -27,7 +27,10 @@ spec:
             - name: {{ .name }}
               value: {{ .value | quote }}
             {{- end }}
-
+          volumeMounts:
+            - name: gcs-credentials
+              mountPath: /etc/gcp
+              readOnly: true
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
           livenessProbe:
@@ -48,3 +51,7 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 3
             successThreshold: 1
+      volumes:
+        - name: gcs-credentials
+          secret:
+            secretName: gcs-service-account

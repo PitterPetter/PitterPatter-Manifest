@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: loventure-auth-service
+  name: loventure-redis
   namespace: argocd
   labels:
     environment: production
     project: loventure
-    service: auth
-    priority: "2"  # Redis 이후 배포
+    service: redis
+    priority: "1"  # 가장 먼저 배포되어야 함 (기반 서비스)
 spec:
   project: default
   source:
     repoURL: https://github.com/PitterPetter/PitterPatter-Manifest
     targetRevision: main
-    path: charts/loventure/charts/auth-service
+    path: charts/loventure/charts/redis
     helm:
       valueFiles:
         - ../../values.yaml
