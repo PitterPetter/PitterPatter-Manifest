@@ -16,7 +16,7 @@ spec:
     path: charts/loventure/charts/redis
     helm:
       valueFiles:
-        - ../../values.yaml
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app

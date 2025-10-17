@@ -14,6 +14,9 @@ spec:
     repoURL: https://github.com/PitterPetter/PitterPatter-Manifest
     targetRevision: main
     path: charts/loventure/charts/ai-service
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app

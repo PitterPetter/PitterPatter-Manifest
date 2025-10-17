@@ -34,3 +34,6 @@ global:
   imagePullPolicy: IfNotPresent
   namespace: loventure-app
   environment: production
+
+
+
