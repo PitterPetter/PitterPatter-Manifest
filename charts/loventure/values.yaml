@@ -90,7 +90,7 @@ gateway:
   # Gateway deployment configuration with latest image tag from main
   deployment:
     image:
-      tag: "3d97a0b"
+      tag: "b185e76"
 # Auth Service Configuration
 auth-service:
   service:
@@ -294,7 +294,7 @@ territory-service:
     image:
       registry: docker.io
       repository: postgis/postgis
-      tag: "14-3.4"  # PostgreSQL 14 + PostGIS 3.4 (with GeoJSON support)
+      tag: "14-3.4" # PostgreSQL 14 + PostGIS 3.4 (with GeoJSON support)
     service:
       port: 5432
     persistence:
