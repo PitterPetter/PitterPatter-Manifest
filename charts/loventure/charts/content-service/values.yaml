@@ -33,7 +33,7 @@ deployment:
   volumes:
     - name: gcs-credentials
       secret:
-        secretName: gcs-credentials
+        secretName: gcs-service-account
 
 gcs:
   bucketName: "" # Set via ArgoCD Parameters
