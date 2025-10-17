@@ -1,7 +1,7 @@
 # 개별 서비스 배포 방식 사용으로 인해 비활성화
 # 전체 배포가 필요한 경우 이 파일의 주석을 해제하고 개별 서비스 애플리케이션들을 비활성화
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
   name: loventure-prod
   namespace: argocd
