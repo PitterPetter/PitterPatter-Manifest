@@ -18,25 +18,20 @@ spec:
       releaseName: loventure
       valueFiles:
         - values.yaml
-      # DB 접속 정보 (ArgoCD UI Parameters 탭에서 직접 수정 가능)
-      parameters:
-        - name: deployment.env[1].name
-          value: ""
-        - name: deployment.env[1].value
-          value: ""
-        - name: deployment.env[2].name
-          value: ""
-        - name: deployment.env[2].value
-          value: ""
-        - name: deployment.env[3].name
-          value: ""
-        - name: deployment.env[3].value
-          value: ""
-      # GCS 설정 (values.yaml에 이미 정의됨, 필요시 Parameters로 덮어쓰기 가능):
-      # - name: gcs.bucketName
-      #   value: "loventure-diaries"
-      # - name: gcs.projectId
-      #   value: "loventure-435513"
+      # DB 접속 정보 및 GCS 설정 (ArgoCD UI Parameters 탭에서 직접 수정 가능)
+      # parameters:
+      #   - name: postgres.enabled
+      #     value: "false"
+      #   - name: deployment.env[1].value
+      #     value: "jdbc:postgresql://10.164.96.2:5432/content_db"
+      #   - name: deployment.env[2].value
+      #     value: "postgres"
+      #   - name: deployment.env[3].value
+      #     value: "Enqjrdlemf1!"
+      #   - name: gcs.bucketName
+      #     value: "loventure-diaries"
+      #   - name: gcs.projectId
+      #     value: "loventure-435513"
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app

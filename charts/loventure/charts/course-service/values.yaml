@@ -16,9 +16,6 @@ deployment:
     repository: course-service
     tag: "8a235b8"
     pullPolicy: IfNotPresent
-  env:
-    - name: SERVER_PORT
-      value: "8083"
   resources:
     limits:
       cpu: 500m
@@ -26,6 +23,15 @@ deployment:
     requests:
       cpu: 250m
       memory: 256Mi
+  env:
+    - name: SERVER_PORT
+      value: "8083"
+    - name: SPRING_DATASOURCE_URL
+      value: ""  # Set via ArgoCD Parameters
+    - name: SPRING_DATASOURCE_USERNAME
+      value: ""  # Set via ArgoCD Parameters
+    - name: SPRING_DATASOURCE_PASSWORD
+      value: ""  # Set via ArgoCD Parameters
 
 postgres:
   enabled: true

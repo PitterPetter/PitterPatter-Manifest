@@ -26,6 +26,12 @@ deployment:
   env:
     - name: SERVER_PORT
       value: "8081"
+    - name: SPRING_DATASOURCE_URL
+      value: ""  # Set via ArgoCD Parameters
+    - name: SPRING_DATASOURCE_USERNAME
+      value: ""  # Set via ArgoCD Parameters
+    - name: SPRING_DATASOURCE_PASSWORD
+      value: ""  # Set via ArgoCD Parameters
 
 postgres:
   enabled: true
