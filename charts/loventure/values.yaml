@@ -313,4 +313,4 @@ territory-service:
 territory-service:
   deployment:
     image:
-      tag: be6592c
+      tag: 97b118c
