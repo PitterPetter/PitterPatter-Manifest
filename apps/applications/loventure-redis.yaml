@@ -15,6 +15,7 @@ spec:
     targetRevision: main
     path: charts/loventure/charts/redis
     helm:
+      releaseName: loventure
       valueFiles:
         - values.yaml
   destination:

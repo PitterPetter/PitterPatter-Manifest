@@ -15,6 +15,7 @@ spec:
     targetRevision: main
     path: charts/loventure/charts/auth-service
     helm:
+      releaseName: loventure
       valueFiles:
         - values.yaml
   destination:
