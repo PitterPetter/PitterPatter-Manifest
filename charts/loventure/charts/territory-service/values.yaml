@@ -1,0 +1,53 @@
+# Default values for territory-service
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+fullnameOverride: "loventure-prod-territory-service"
+
+service:
+  name: territory-service
+  type: ClusterIP
+  port: 8084
+  targetPort: 8084
+
+deployment:
+  replicaCount: 1
+  image:
+    repository: territory-service
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  env:
+    - name: SERVER_PORT
+      value: "8084"
+
+postgres:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: postgres
+    tag: "14"
+  service:
+    port: 5432
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+  auth:
+    postgresPassword: "" # Set via ArgoCD UI
+    database: "territory"
+    username: "root"
+
+global:
+  imageRegistry: docker.io/pitterpetter
+  imagePullPolicy: IfNotPresent
+  namespace: loventure-app
+  environment: prod
+
