@@ -27,11 +27,11 @@ deployment:
     - name: SERVER_PORT
       value: "8082"
     - name: SPRING_DATASOURCE_URL
-      value: ""  # Set via ArgoCD Parameters
+      value: "jdbc:postgresql://10.164.96.2:5432/content_db"
     - name: SPRING_DATASOURCE_USERNAME
-      value: ""  # Set via ArgoCD Parameters
+      value: "postgres"
     - name: SPRING_DATASOURCE_PASSWORD
-      value: ""  # Set via ArgoCD Parameters
+      value: "Enqjrdlemf1!"
   volumeMounts:
     - name: gcs-credentials
       mountPath: /etc/gcp
@@ -47,7 +47,7 @@ gcs:
   projectId: "" # Set via ArgoCD Parameters
 
 postgres:
-  enabled: true
+  enabled: false  # Using external PostgreSQL
   image:
     registry: docker.io
     repository: postgres
