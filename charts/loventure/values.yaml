@@ -90,7 +90,7 @@ gateway:
   # Gateway deployment configuration with latest image tag from main
   deployment:
     image:
-      tag: "423013c"
+      tag: "3d97a0b"
 # Auth Service Configuration
 auth-service:
   service:
@@ -102,7 +102,7 @@ auth-service:
     replicaCount: 1
     image:
       repository: auth-service
-      tag: "31b5ea9"
+      tag: "348387f"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -211,7 +211,6 @@ course-service:
       postgresPassword: "" # Set via ArgoCD UI: course-service.postgres.auth.postgresPassword
       database: "course"
       username: "root"
-
 # Redis Configuration
 redis:
   enabled: true
@@ -240,7 +239,6 @@ redis:
     enabled: false # 캐싱용이므로 영구 저장 불필요
   auth:
     enabled: false # 캐싱용이므로 인증 불필요
-
 # AI Service Configuration
 ai-service:
   service:
@@ -267,8 +265,7 @@ ai-service:
       - name: PORT
         value: "8000"
       - name: SECRET_KEY
-        value: ""  # Set via ArgoCD UI: ai-service.deployment.env[2].value
-
+        value: "" # Set via ArgoCD UI: ai-service.deployment.env[2].value
 # Territory Service Configuration
 territory-service:
   service:
@@ -296,8 +293,8 @@ territory-service:
     enabled: true
     image:
       registry: docker.io
-      repository: postgres
-      tag: "14"
+      repository: postgis/postgis
+      tag: "14-3.4"  # PostgreSQL 14 + PostGIS 3.4 (with GeoJSON support)
     service:
       port: 5432
     persistence:
@@ -309,13 +306,11 @@ territory-service:
       postgresPassword: "" # Set via ArgoCD UI: territory-service.postgres.auth.postgresPassword
       database: "territory"
       username: "root"
-      
 # gateway-service:
 #   deployment:
 #     image:
 #       tag: cb446c3
-
 territory-service:
   deployment:
     image:
-      tag: 870e641
+      tag: 27ac3ba
