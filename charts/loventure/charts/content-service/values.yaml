@@ -26,6 +26,10 @@ deployment:
   env:
     - name: SERVER_PORT
       value: "8082"
+  volumeMounts:
+    - name: gcs-credentials
+      mountPath: /etc/gcp
+      readOnly: true
 
 postgres:
   enabled: true
