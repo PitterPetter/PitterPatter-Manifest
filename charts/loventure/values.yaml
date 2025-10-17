@@ -211,6 +211,7 @@ course-service:
       postgresPassword: "" # Set via ArgoCD UI: course-service.postgres.auth.postgresPassword
       database: "course"
       username: "root"
+
 # Redis Configuration
 redis:
   enabled: true
@@ -239,6 +240,7 @@ redis:
     enabled: false # 캐싱용이므로 영구 저장 불필요
   auth:
     enabled: false # 캐싱용이므로 인증 불필요
+
 # AI Service Configuration
 ai-service:
   service:
@@ -266,7 +268,7 @@ ai-service:
         value: "8000"
       - name: SECRET_KEY
         value: ""  # Set via ArgoCD UI: ai-service.deployment.env[2].value
-        
+
 # Territory Service Configuration
 territory-service:
   service:
