@@ -30,6 +30,10 @@ deployment:
     - name: gcs-credentials
       mountPath: /etc/gcp
       readOnly: true
+  volumes:
+    - name: gcs-credentials
+      secret:
+        secretName: gcs-credentials
 
 gcs:
   bucketName: "" # Set via ArgoCD Parameters
