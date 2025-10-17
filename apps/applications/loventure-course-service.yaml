@@ -18,7 +18,7 @@ spec:
       releaseName: loventure
       valueFiles:
         - values.yaml
-      # DB 접속 정보 (ArgoCD UI Parameters 탭에서 설정)
+      # DB 접속 정보 (ArgoCD UI Parameters 탭에서 직접 수정 가능)
       parameters:
         - name: deployment.env[1].name
           value: ""
