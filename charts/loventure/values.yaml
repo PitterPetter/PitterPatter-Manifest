@@ -152,6 +152,8 @@ content-service:
         cpu: 250m
         memory: 256Mi
     env:
+      - name: SPRING_PROFILES_ACTIVE
+        value: "prod"
       - name: SERVER_PORT
         value: "8082"
   postgres:
