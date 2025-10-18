@@ -6,13 +6,14 @@ global:
 # Gateway Service Configuration
 gateway:
   replicaCount: 1
-  image:
-    repository: gateway
-    tag: latest
-    pullPolicy: Always
   service:
     type: ClusterIP
     port: 8080
+  deployment:
+    image:
+      repository: gateway
+      tag: "fba6ef9"
+      pullPolicy: IfNotPresent
   resources:
     limits:
       cpu: 500m
@@ -87,10 +88,6 @@ gateway:
       window: "1m"
   # JWT Secret for Gateway Service
   jwtSecret: "" # Set via ArgoCD UI: gateway.jwtSecret
-  # Gateway deployment configuration with latest image tag from main
-  deployment:
-    image:
-      tag: "fba6ef9"
 # Auth Service Configuration
 auth-service:
   service:
@@ -277,7 +274,7 @@ territory-service:
     replicaCount: 1
     image:
       repository: territory-service
-      tag: "latest"
+      tag: "4d1e54f"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -306,11 +303,3 @@ territory-service:
       postgresPassword: "" # Set via ArgoCD UI: territory-service.postgres.auth.postgresPassword
       database: "territory"
       username: "root"
-# gateway-service:
-#   deployment:
-#     image:
-#       tag: cb446c3
-territory-service:
-  deployment:
-    image:
-      tag: 4d1e54f
