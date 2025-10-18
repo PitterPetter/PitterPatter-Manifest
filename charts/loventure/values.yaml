@@ -247,7 +247,7 @@ ai-service:
     replicaCount: 1
     image:
       repository: ai-service
-      tag: "172419d"
+      tag: "7f948b3"
       pullPolicy: IfNotPresent
     resources:
       limits:
