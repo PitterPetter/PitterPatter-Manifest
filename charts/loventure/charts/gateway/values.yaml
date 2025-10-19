@@ -81,6 +81,8 @@ ingress:
           pathType: "Prefix"
         - path: "/logout"
           pathType: "Prefix"
+        - path: "/oauth2/callback"
+          pathType: "Prefix"
   tls:
     enabled: true
     secretName: "pitterpetter-ssl"
