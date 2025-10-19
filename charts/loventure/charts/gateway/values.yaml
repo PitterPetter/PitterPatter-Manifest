@@ -100,6 +100,12 @@ ingress:
     enabled: true
     requests: 100
     window: "1m"
+  # Proxy settings
+  proxyBodySize: "10m"
+  proxyBufferSize: "16k"
+  proxyBuffersNumber: "8"
+  proxyReadTimeout: "300"
+  proxySendTimeout: "300"
 
 # JWT Secret for Gateway Service
 jwtSecret: "" # Set via ArgoCD UI

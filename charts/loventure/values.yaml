@@ -4,50 +4,6 @@ global:
   namespace: loventure-app
   environment: production
 
-# Gateway Service Configuration
-# gateway:
-#   replicaCount: 1
-#   image:
-#     repository: gateway
-#     tag: latest
-#     pullPolicy: Always
-#   service:
-#     type: ClusterIP
-#     port: 8080
-#   resources:
-#     limits:
-#       cpu: 500m
-#       memory: 512Mi
-#     requests:
-#       cpu: 250m
-#       memory: 256Mi
-#   # Additional required settings for gateway subchart
-#   imagePullSecrets: []
-#   nameOverride: ""
-#   fullnameOverride: ""
-#   serviceAccount:
-#     create: true
-#     annotations: {}
-#     name: ""
-#     automountServiceAccountToken: true
-#   podAnnotations: {}
-#   podSecurityContext:
-#     fsGroup: 2000
-#   securityContext:
-#     capabilities:
-#       drop:
-#         - ALL
-#     readOnlyRootFilesystem: false
-#     runAsNonRoot: true
-#     runAsUser: 1000
-#   autoscaling:
-#     enabled: false
-#     minReplicas: 1
-#     maxReplicas: 100
-#     targetCPUUtilizationPercentage: 80
-#   nodeSelector: {}
-#   tolerations: []
-#   affinity: {}
 #   # Gateway Ingress Configuration
 #   ingress:
 #     enabled: true
