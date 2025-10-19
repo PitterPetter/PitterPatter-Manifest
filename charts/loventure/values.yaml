@@ -274,7 +274,7 @@ territory-service:
     replicaCount: 1
     image:
       repository: territory-service
-      tag: "4d1e54f"
+      tag: "8615390"
       pullPolicy: IfNotPresent
     resources:
       limits:
