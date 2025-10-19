@@ -24,8 +24,10 @@ spec:
               protocol: TCP
           env:
             {{- range .Values.deployment.env }}
+            {{- if and .name .value }}
             - name: {{ .name }}
               value: {{ .value | quote }}
+            {{- end }}
             {{- end }}
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
