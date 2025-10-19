@@ -14,7 +14,7 @@ deployment:
   replicaCount: 1
   image:
     repository: auth-service
-    tag: "ce76dde"
+    tag: "7653931"
     pullPolicy: IfNotPresent
   resources:
     limits:

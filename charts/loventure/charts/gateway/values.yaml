@@ -6,7 +6,7 @@ fullnameOverride: "loventure-prod-gateway"
 
 image:
   repository: gateway
-  tag: "fba6ef9"
+  tag: "10113be"
   pullPolicy: IfNotPresent
 
 service:
