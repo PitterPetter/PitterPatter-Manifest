@@ -34,22 +34,7 @@ deployment:
       value: "Enqjrdlemf1!"
 
 postgres:
-  enabled: false  # Using external PostgreSQL
-  image:
-    registry: docker.io
-    repository: postgres
-    tag: "14"
-  service:
-    port: 5432
-  persistence:
-    enabled: true
-    size: 10Gi
-    storageClass: ""
-    accessMode: ReadWriteOnce
-  auth:
-    postgresPassword: "" # Set via ArgoCD UI
-    database: "auth"
-    username: "root"
+  enabled: false  # Using external Managed PostgreSQL
 
 global:
   imageRegistry: docker.io/pitterpetter

@@ -14,7 +14,7 @@ deployment:
   replicaCount: 1
   image:
     repository: territory-service
-    tag: "fba6ef9"
+    tag: "8615390"
     pullPolicy: IfNotPresent
   resources:
     limits:
@@ -34,22 +34,7 @@ deployment:
       value: "Enqjrdlemf1!"
 
 postgres:
-  enabled: false  # Using external PostgreSQL with PostGIS
-  image:
-    registry: docker.io
-    repository: postgis/postgis
-    tag: "14-3.4"  # PostgreSQL 14 + PostGIS 3.4 (with GeoJSON support)
-  service:
-    port: 5432
-  persistence:
-    enabled: true
-    size: 10Gi
-    storageClass: ""
-    accessMode: ReadWriteOnce
-  auth:
-    postgresPassword: "" # Set via ArgoCD UI
-    database: "territory"
-    username: "root"
+  enabled: false  # Using external Managed PostgreSQL with PostGIS
 
 global:
   imageRegistry: docker.io/pitterpetter
