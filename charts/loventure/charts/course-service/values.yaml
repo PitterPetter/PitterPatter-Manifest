@@ -14,7 +14,7 @@ deployment:
   replicaCount: 1
   image:
     repository: course-service
-    tag: "8a235b8"
+    tag: "bfc68e6"
     pullPolicy: IfNotPresent
   resources:
     limits:

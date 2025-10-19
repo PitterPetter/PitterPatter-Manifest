@@ -14,7 +14,7 @@ deployment:
   replicaCount: 1
   image:
     repository: territory-service
-    tag: "27ac3ba"
+    tag: "fba6ef9"
     pullPolicy: IfNotPresent
   resources:
     limits:

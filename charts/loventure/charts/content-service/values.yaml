@@ -14,7 +14,7 @@ deployment:
   replicaCount: 1
   image:
     repository: content-service
-    tag: "8056f67"
+    tag: "5bc47a1"
     pullPolicy: IfNotPresent
   resources:
     limits:

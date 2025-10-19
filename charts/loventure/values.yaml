@@ -277,8 +277,3 @@ redis:
 #   deployment:
 #     image:
 #       tag: cb446c3
-
-territory-service:
-  deployment:
-    image:
-      tag: 6633a01
