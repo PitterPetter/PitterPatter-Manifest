@@ -4,6 +4,11 @@
 
 fullnameOverride: "loventure-prod-gateway"
 
+image:
+  repository: gateway
+  tag: "fba6ef9"
+  pullPolicy: IfNotPresent
+
 service:
   name: gateway
   type: ClusterIP
@@ -12,10 +17,6 @@ service:
 
 deployment:
   replicaCount: 1
-  image:
-    repository: gateway
-    tag: "fba6ef9"
-    pullPolicy: IfNotPresent
   resources:
     limits:
       cpu: 500m
