@@ -303,11 +303,4 @@ territory-service:
       postgresPassword: "" # Set via ArgoCD UI: territory-service.postgres.auth.postgresPassword
       database: "territory"
       username: "root"
-authService:
-  deployment:
-    image:
-      tag: "1066640"
-contentService:
-  deployment:
-    image:
-      tag: 26e74d5
+
