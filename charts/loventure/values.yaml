@@ -4,173 +4,157 @@ global:
   namespace: loventure-app
   environment: production
 
-#   # Gateway Ingress Configuration
-#   ingress:
-#     enabled: true
-#     staticIpName: "pitterpetter-gateway-ip"
-#     managedCertificate: "pitterpetter-ssl"
-#     sslRedirect: true
-#     hosts:
-#       - host: "api.loventure.us"
-#         paths:
-#           - path: "/api"
-#             pathType: "Prefix"
-#           - path: "/health"
-#             pathType: "Prefix"
-#           - path: "/actuator"
-#             pathType: "Prefix"
-#           - path: "/oauth2"
-#             pathType: "Prefix"
-#           - path: "/login/oauth2"
-#             pathType: "Prefix"
-#           - path: "/login/oauth2/code"
-#             pathType: "Prefix"
-#           - path: "/logout"
-#             pathType: "Prefix"
-#     tls:
-#       enabled: true
-#       secretName: "pitterpetter-ssl"
-#       hosts:
-#         - "api.loventure.us"
-#     cors:
-#       enabled: true
-#       allowOrigin: "http://localhost:5173, https://api.loventure.us, https://loventure.us"
-#       allowMethods: "GET,POST,PUT,DELETE,OPTIONS"
-#       allowHeaders: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
-#     # Rate Limiting
-#     rateLimit:
-#       enabled: true
-#       requests: 100
-#       window: "1m"
-#   # JWT Secret for Gateway Service
-#   jwtSecret: "" # Set via ArgoCD UI: gateway.jwtSecret
-#   # Gateway deployment configuration with latest image tag from main
-#   deployment:
-#     image:
-#       tag: 7fdaaaa
+# Gateway Configuration
+gateway:
+  service:
+    name: gateway
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
+  deployment:
+    replicaCount: 1
+    image:
+      repository: gateway
+      tag: "7fdaaaa"
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    env:
+      - name: SERVER_PORT
+        value: "8080"
+  ingress:
+    enabled: true
+    staticIpName: "pitterpetter-gateway-ip"
+    managedCertificate: "pitterpetter-ssl"
+    sslRedirect: true
+    hosts:
+      - host: "api.loventure.us"
+        paths:
+          - path: "/api"
+            pathType: "Prefix"
+          - path: "/health"
+            pathType: "Prefix"
+          - path: "/actuator"
+            pathType: "Prefix"
+          - path: "/oauth2"
+            pathType: "Prefix"
+          - path: "/login/oauth2"
+            pathType: "Prefix"
+          - path: "/login/oauth2/code"
+            pathType: "Prefix"
+          - path: "/logout"
+            pathType: "Prefix"
+    tls:
+      enabled: true
+      secretName: "pitterpetter-ssl"
+      hosts:
+        - "api.loventure.us"
+    cors:
+      enabled: true
+      allowOrigin: "http://localhost:5173, https://api.loventure.us, https://loventure.us"
+      allowMethods: "GET,POST,PUT,DELETE,OPTIONS"
+      allowHeaders: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
+    rateLimit:
+      enabled: true
+      requests: 100
+      window: "1m"
+  # JWT Secret for Gateway Service
+  jwtSecret: "" # Set via ArgoCD UI: gateway.jwtSecret
 
 # Auth Service Configuration
-# auth-service:
-#   service:
-#     name: auth-service
-#     type: ClusterIP
-#     port: 8081
-#     targetPort: 8081
-#   deployment:
-#     replicaCount: 1
-#     image:
-#       repository: auth-service
-#       tag: "ab5525f"
-#       pullPolicy: IfNotPresent
-#     resources:
-#       limits:
-#         cpu: 500m
-#         memory: 512Mi
-#       requests:
-#         cpu: 250m
-#         memory: 256Mi
-#     env:
-#       - name: SERVER_PORT
-#         value: "8081"
-#   postgres:
-#     enabled: true
-#     image:
-#       registry: docker.io
-#       repository: postgres
-#       tag: "14"
-#     service:
-#       port: 5432
-#     persistence:
-#       enabled: true
-#       size: 10Gi
-#       storageClass: ""
-#       accessMode: ReadWriteOnce
-#     auth:
-#       postgresPassword: "" # Set via ArgoCD UI: auth-service.postgres.auth.postgresPassword
-#       database: "auth"
-#       username: "root"
+auth-service:
+  service:
+    name: auth-service
+    type: ClusterIP
+    port: 8081
+    targetPort: 8081
+  deployment:
+    replicaCount: 1
+    image:
+      repository: auth-service
+      tag: "ab5525f"
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    env:
+      - name: SERVER_PORT
+        value: "8081"
+      - name: SPRING_DATASOURCE_URL
+        value: "" # Set via ArgoCD UI: auth-service.deployment.env[1].value
+      - name: SPRING_DATASOURCE_USERNAME
+        value: "" # Set via ArgoCD UI: auth-service.deployment.env[2].value
+      - name: SPRING_DATASOURCE_PASSWORD
+        value: "" # Set via ArgoCD UI: auth-service.deployment.env[3].value
 
 # Content Service Configuration
-# content-service:
-#   service:
-#     name: content-service
-#     type: ClusterIP
-#     port: 8082
-#     targetPort: 8082
-#   deployment:
-#     replicaCount: 1
-#     image:
-#       repository: content-service
-#       tag: "8056f67"
-#       pullPolicy: IfNotPresent
-#     resources:
-#       limits:
-#         cpu: 500m
-#         memory: 512Mi
-#       requests:
-#         cpu: 250m
-#         memory: 256Mi
-#     env:
-#       - name: SERVER_PORT
-#         value: "8082"
-#   postgres:
-#     enabled: true
-#     image:
-#       registry: docker.io
-#       repository: postgres
-#       tag: "14"
-#     service:
-#       port: 5432
-#     persistence:
-#       enabled: true
-#       size: 10Gi
-#       storageClass: ""
-#       accessMode: ReadWriteOnce
-#     auth:
-#       postgresPassword: "" # Set via ArgoCD UI: content-service.postgres.auth.postgresPassword
-#       database: "content"
-#       username: "root"
+content-service:
+  service:
+    name: content-service
+    type: ClusterIP
+    port: 8082
+    targetPort: 8082
+  deployment:
+    replicaCount: 1
+    image:
+      repository: content-service
+      tag: "8056f67"
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    env:
+      - name: SERVER_PORT
+        value: "8082"
+      - name: SPRING_DATASOURCE_URL
+        value: "" # Set via ArgoCD UI: content-service.deployment.env[1].value
+      - name: SPRING_DATASOURCE_USERNAME
+        value: "" # Set via ArgoCD UI: content-service.deployment.env[2].value
+      - name: SPRING_DATASOURCE_PASSWORD
+        value: "" # Set via ArgoCD UI: content-service.deployment.env[3].value
 
 # Course Service Configuration
-# course-service:
-#   service:
-#     name: course-service
-#     type: ClusterIP
-#     port: 8083
-#     targetPort: 8083
-#   deployment:
-#     replicaCount: 1
-#     image:
-#       repository: course-service
-#       tag: "8a235b8"
-#       pullPolicy: IfNotPresent
-#     env:
-#       - name: SERVER_PORT
-#         value: "8083"
-#     resources:
-#       limits:
-#         cpu: 500m
-#         memory: 512Mi
-#       requests:
-#         cpu: 250m
-#         memory: 256Mi
-#   postgres:
-#     enabled: true
-#     image:
-#       registry: docker.io
-#       repository: postgres
-#       tag: "14"
-#     service:
-#       port: 5432
-#     persistence:
-#       enabled: true
-#       size: 10Gi
-#       storageClass: ""
-#       accessMode: ReadWriteOnce
-#     auth:
-#       postgresPassword: "" # Set via ArgoCD UI: course-service.postgres.auth.postgresPassword
-#       database: "course"
-#       username: "root"
+course-service:
+  service:
+    name: course-service
+    type: ClusterIP
+    port: 8083
+    targetPort: 8083
+  deployment:
+    replicaCount: 1
+    image:
+      repository: course-service
+      tag: "8a235b8"
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    env:
+      - name: SERVER_PORT
+        value: "8083"
+      - name: SPRING_DATASOURCE_URL
+        value: "" # Set via ArgoCD UI: course-service.deployment.env[1].value
+      - name: SPRING_DATASOURCE_USERNAME
+        value: "" # Set via ArgoCD UI: course-service.deployment.env[2].value
+      - name: SPRING_DATASOURCE_PASSWORD
+        value: "" # Set via ArgoCD UI: course-service.deployment.env[3].value
 
 # Redis Configuration
 redis:
@@ -202,34 +186,59 @@ redis:
     enabled: false # 캐싱용이므로 인증 불필요
 
 # AI Service Configuration
-# ai-service:
-#   service:
-#     name: ai-service
-#     type: ClusterIP
-#     port: 8000
-#     targetPort: 8000
-#   deployment:
-#     replicaCount: 1
-#     image:
-#       repository: ai-service
-#       tag: "312b54d"
-#       pullPolicy: IfNotPresent
-#     resources:
-#       limits:
-#         cpu: 1000m
-#         memory: 1Gi
-#       requests:
-#         cpu: 500m
-#         memory: 512Mi
-#     env:
-#       - name: ENVIRONMENT
-#         value: "production"
-#       - name: PORT
-#         value: "8000"
-#       - name: SECRET_KEY
-#         value: "" # Set via ArgoCD UI
+ai-service:
+  service:
+    name: ai-service
+    type: ClusterIP
+    port: 8000
+    targetPort: 8000
+  deployment:
+    replicaCount: 1
+    image:
+      repository: ai-service
+      tag: "5306fb7"
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+    env:
+      - name: ENVIRONMENT
+        value: "production"
+      - name: PORT
+        value: "8000"
+      - name: SECRET_KEY
+        value: "" # Set via ArgoCD UI: ai-service.deployment.env[2].value
 
-# gateway-service:
-#   deployment:
-#     image:
-#       tag: cb446c3
+# Territory Service Configuration
+territory-service:
+  service:
+    name: territory-service
+    type: ClusterIP
+    port: 8084
+    targetPort: 8084
+  deployment:
+    replicaCount: 1
+    image:
+      repository: territory-service
+      tag: "8615390"
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    env:
+      - name: SERVER_PORT
+        value: "8084"
+      - name: SPRING_DATASOURCE_URL
+        value: "" # Set via ArgoCD UI: territory-service.deployment.env[1].value
+      - name: SPRING_DATASOURCE_USERNAME
+        value: "" # Set via ArgoCD UI: territory-service.deployment.env[2].value
+      - name: SPRING_DATASOURCE_PASSWORD
+        value: "" # Set via ArgoCD UI: territory-service.deployment.env[3].value

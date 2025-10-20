@@ -42,23 +42,23 @@ PitterPatter-Manifest/
 ├── apps/                                 # ArgoCD Application 매니페스트
 │   └── applications/
 │       ├── argocd.yaml                  # ArgoCD 자기 관리 Application
-│       ├── loventure-prod.yaml          # Production 환경 루트 Application
+│       ├── loventure-prod.yaml          # Production 환경 통합 Application (Umbrella Chart)
 │       └── default-project.yaml         # ArgoCD default 프로젝트 설정
 ├── charts/                              # Helm 차트
 │   ├── argo-cd/                         # ArgoCD 설치용 Helm 차트
 │   │   ├── Chart.yaml                   # ArgoCD 공식 차트 의존성
 │   │   └── values.yaml                  # ArgoCD 설정값
-│   └── loventure/                       # 부모 차트
-│       ├── Chart.yaml
-│       ├── values.yaml                  # Production 설정
-│       ├── values-dev.yaml              # Development 설정
-│       ├── charts/                      # 서브차트들
-│       │   ├── auth-service/            # 인증 서비스 차트
-│       │   ├── content-service/         # 콘텐츠 서비스 차트
-│       │   ├── course-service/          # 코스 서비스 차트
-│       │   └── ai-service/              # AI 서비스 차트
-│       └── templates/
-│           └── _helpers.tpl
+│   └── loventure/                       # Umbrella 차트 (모든 서비스 통합)
+│       ├── Chart.yaml                   # 모든 서비스 의존성 정의
+│       ├── values.yaml                  # Production 환경 통합 설정
+│       └── charts/                      # 서브차트들
+│           ├── gateway/                 # API Gateway 차트
+│           ├── auth-service/            # 인증 서비스 차트
+│           ├── content-service/         # 콘텐츠 서비스 차트
+│           ├── course-service/          # 코스 서비스 차트
+│           ├── ai-service/              # AI 서비스 차트
+│           ├── territory-service/       # 지역 서비스 차트
+│           └── redis/                   # Redis 캐싱 서비스 차트
 ├── BOOTSTRAP_GUIDE.md                   # ArgoCD 부트스트랩 가이드
 └── README.md                            # 이 파일
 ```

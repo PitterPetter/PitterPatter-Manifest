@@ -1,7 +1,5 @@
-# 개별 서비스 배포 방식 사용으로 인해 비활성화
-# 전체 배포가 필요한 경우 이 파일의 주석을 해제하고 개별 서비스 애플리케이션들을 비활성화
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
   name: loventure-prod
   namespace: argocd
@@ -17,7 +15,42 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-      # Parameters will be set via ArgoCD UI for security
+      # Production 환경 DB 접속 정보 및 AI Service SECRET_KEY 설정
+      parameters:
+        # Gateway JWT Secret
+        - name: gateway.jwtSecret
+          value: "" # ArgoCD UI에서 실제 값 설정
+        # Auth Service DB 접속 정보
+        - name: auth-service.deployment.env[1].value
+          value: "" # SPRING_DATASOURCE_URL
+        - name: auth-service.deployment.env[2].value
+          value: "" # SPRING_DATASOURCE_USERNAME
+        - name: auth-service.deployment.env[3].value
+          value: "" # SPRING_DATASOURCE_PASSWORD
+        # Content Service DB 접속 정보
+        - name: content-service.deployment.env[1].value
+          value: "" # SPRING_DATASOURCE_URL
+        - name: content-service.deployment.env[2].value
+          value: "" # SPRING_DATASOURCE_USERNAME
+        - name: content-service.deployment.env[3].value
+          value: "" # SPRING_DATASOURCE_PASSWORD
+        # Course Service DB 접속 정보
+        - name: course-service.deployment.env[1].value
+          value: "" # SPRING_DATASOURCE_URL
+        - name: course-service.deployment.env[2].value
+          value: "" # SPRING_DATASOURCE_USERNAME
+        - name: course-service.deployment.env[3].value
+          value: "" # SPRING_DATASOURCE_PASSWORD
+        # Territory Service DB 접속 정보
+        - name: territory-service.deployment.env[1].value
+          value: "" # SPRING_DATASOURCE_URL
+        - name: territory-service.deployment.env[2].value
+          value: "" # SPRING_DATASOURCE_USERNAME
+        - name: territory-service.deployment.env[3].value
+          value: "" # SPRING_DATASOURCE_PASSWORD
+        # AI Service SECRET_KEY
+        - name: ai-service.deployment.env[2].value
+          value: "" # SECRET_KEY
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app
