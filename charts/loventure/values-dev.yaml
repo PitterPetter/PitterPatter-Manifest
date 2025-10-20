@@ -84,7 +84,7 @@ content-service:
   
     env:
       - name: SPRING_PROFILES_ACTIVE
-        value: "development"
+        value: "dev"
       - name: SERVER_PORT
         value: "8080"
   
