@@ -14,7 +14,7 @@ deployment:
   replicaCount: 1
   image:
     repository: ai-service
-    tag: "530g6fb7"
+    tag: "77abc3f"
     pullPolicy: IfNotPresent
   resources:
     limits:
