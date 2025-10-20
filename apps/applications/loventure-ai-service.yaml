@@ -18,11 +18,8 @@ spec:
       releaseName: loventure
       valueFiles:
         - values.yaml
-      parameters:
-        # SECRET_KEY는 ArgoCD UI Parameters 탭에서 직접 설정
-        # GitHub에 민감한 정보가 노출되지 않도록 함
-        - name: deployment.env[2].value
-          value: ""  # ArgoCD UI에서 실제 값 설정
+      # AI Service 환경변수는 values.yaml에서 직접 관리
+      # SECRET_KEY는 values.yaml의 deployment.env[2].value에서 설정
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app
