@@ -30,7 +30,7 @@ spec:
             - name: PORT
               value: "8000"
             - name: SECRET_KEY
-              value: "여기에 ArgoCD UI에서 설정할 실제 시크릿 값"
+              value: "" # ArgoCD UI에서 실제 값 설정
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app
