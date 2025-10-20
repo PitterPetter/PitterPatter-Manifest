@@ -23,13 +23,13 @@ deployment:
     requests:
       cpu: 500m
       memory: 512Mi
-env:
-  - name: ENVIRONMENT
-    value: "production"
-  - name: PORT
-    value: "8000"
-  - name: SECRET_KEY
-    value: "" # Set via ArgoCD UI
+  env:
+    - name: ENVIRONMENT
+      value: "production"
+    - name: PORT
+      value: "8000"
+    - name: SECRET_KEY
+      value: "" # Set via ArgoCD UI
 
 global:
   imageRegistry: docker.io/pitterpetter
