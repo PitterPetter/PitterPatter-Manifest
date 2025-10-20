@@ -20,6 +20,6 @@ dependencies:
   - name: course-service
     version: "0.1.0"
     repository: "file://charts/course-service"
-  - name: ai-service
-    version: "0.1.0"
-    repository: "file://charts/ai-service"
+  # - name: ai-service
+  #   version: "0.1.0"
+  #   repository: "file://charts/ai-service"

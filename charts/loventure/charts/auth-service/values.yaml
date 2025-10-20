@@ -27,11 +27,11 @@ deployment:
     - name: SERVER_PORT
       value: "8081"
     - name: SPRING_DATASOURCE_URL
-      value: "jdbc:postgresql://10.164.96.2:5432/auth_db"
+      value: "" # Set via ArgoCD UI
     - name: SPRING_DATASOURCE_USERNAME
-      value: "postgres"
+      value: "" # Set via ArgoCD UI
     - name: SPRING_DATASOURCE_PASSWORD
-      value: "Enqjrdlemf1!"
+      value: "" # Set via ArgoCD UI
 
 postgres:
   enabled: false  # Using external Managed PostgreSQL

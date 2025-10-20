@@ -24,7 +24,7 @@ spec:
               protocol: TCP
           env:
             {{- range .Values.deployment.env }}
-            {{- if and .name .value }}
+            {{- if .name }}
             - name: {{ .name }}
               value: {{ .value | quote }}
             {{- end }}
