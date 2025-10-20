@@ -99,7 +99,7 @@ auth-service:
     replicaCount: 1
     image:
       repository: auth-service
-      tag: "90ef03f"
+      tag: "ce76dde"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -139,7 +139,7 @@ content-service:
     replicaCount: 1
     image:
       repository: content-service
-      tag: "8056f67"
+      tag: "5bc47a1"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -179,7 +179,7 @@ course-service:
     replicaCount: 1
     image:
       repository: course-service
-      tag: "8a235b8"
+      tag: "bfc68e6"
       pullPolicy: IfNotPresent
     env:
       - name: SERVER_PORT
@@ -247,7 +247,7 @@ ai-service:
     replicaCount: 1
     image:
       repository: ai-service
-      tag: "ba21852"
+      tag: "312b54d"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -274,7 +274,7 @@ territory-service:
     replicaCount: 1
     image:
       repository: territory-service
-      tag: "4d1e54f"
+      tag: "8615390"
       pullPolicy: IfNotPresent
     resources:
       limits:

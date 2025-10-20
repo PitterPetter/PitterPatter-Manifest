@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/PitterPetter/PitterPatter-Manifest
-    targetRevision: main
+    targetRevision: develop
     path: charts/loventure/charts/ai-service
     helm:
       valueFiles:
