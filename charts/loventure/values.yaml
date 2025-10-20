@@ -307,3 +307,7 @@ authService:
   deployment:
     image:
       tag: "1066640"
+contentService:
+  deployment:
+    image:
+      tag: 26e74d5
