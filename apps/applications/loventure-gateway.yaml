@@ -18,6 +18,11 @@ spec:
       releaseName: loventure
       valueFiles:
         - values.yaml
+      # Gateway JWT Secret (ArgoCD UI Parameters 탭에서 직접 수정 가능)
+      # 실제 값은 ArgoCD UI에서 Parameters 탭에서 설정하세요
+      parameters:
+        - name: jwtSecret
+          value: ""  # JWT Secret: Gateway 인증용 시크릿 키
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app
