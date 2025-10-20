@@ -3,13 +3,11 @@
 # Declare variables to be passed into your templates.
 
 fullnameOverride: "loventure-prod-territory-service"
-
 service:
   name: territory-service
   type: ClusterIP
   port: 8084
   targetPort: 8084
-
 deployment:
   replicaCount: 1
   image:
@@ -26,13 +24,12 @@ deployment:
   env:
     - name: SERVER_PORT
       value: "8084"
-
 postgres:
   enabled: true
   image:
     registry: docker.io
     repository: postgis/postgis
-    tag: "14-3.4"  # PostgreSQL 14 + PostGIS 3.4 (with GeoJSON support)
+    tag: "14-3.4" # PostgreSQL 14 + PostGIS 3.4 (with GeoJSON support)
   service:
     port: 5432
   persistence:
@@ -44,10 +41,10 @@ postgres:
     postgresPassword: "" # Set via ArgoCD UI
     database: "territory"
     username: "root"
-
 global:
   imageRegistry: docker.io/pitterpetter
   imagePullPolicy: IfNotPresent
   namespace: loventure-app
   environment: prod
-
+image:
+  tag: 2aa93c4
