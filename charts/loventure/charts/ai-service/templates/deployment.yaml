@@ -24,7 +24,7 @@ spec:
               protocol: TCP
           env:
             {{- range .Values.deployment.env }}
-            - name: {{ default "EMPTY_NAME" .name }}
+            - name: {{ .name }}
               value: {{ .value | quote }}
             {{- end }}
           resources:

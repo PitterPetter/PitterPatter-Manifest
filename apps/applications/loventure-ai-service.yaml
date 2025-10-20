@@ -23,8 +23,14 @@ spec:
       parameters:
         # SECRET_KEY는 ArgoCD UI Parameters 탭에서 직접 설정
         # GitHub에 민감한 정보가 노출되지 않도록 함
-        - name: deployment.env[2].value
-          value: ""  # ArgoCD UI에서 실제 값 설정
+        - name: deployment.env
+          value: |
+            - name: ENVIRONMENT
+              value: "production"
+            - name: PORT
+              value: "8000"
+            - name: SECRET_KEY
+              value: "여기에 ArgoCD UI에서 설정할 실제 시크릿 값"
   destination:
     server: https://kubernetes.default.svc
     namespace: loventure-app
