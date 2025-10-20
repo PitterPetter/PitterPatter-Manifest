@@ -212,7 +212,7 @@ redis:
 #     replicaCount: 1
 #     image:
 #       repository: ai-service
-#       tag: "ba21852"
+#       tag: "312b54d"
 #       pullPolicy: IfNotPresent
 #     resources:
 #       limits:
@@ -227,7 +227,7 @@ redis:
 #       - name: PORT
 #         value: "8000"
 #       - name: SECRET_KEY
-#         value: "" # Set via ArgoCD UI: ai-service.deployment.env[2].value
+#         value: "" # Set via ArgoCD UI
 
 # gateway-service:
 #   deployment:
