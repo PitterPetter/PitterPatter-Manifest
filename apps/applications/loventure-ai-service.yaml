@@ -21,6 +21,8 @@ spec:
       # AI Service 환경변수 (ArgoCD UI Parameters 탭에서 직접 수정 가능)
       # 실제 값은 ArgoCD UI에서 Parameters 탭에서 설정하세요
       parameters:
+        - name: deployment.env[2].name
+          value: "SECRET_KEY"  # 환경변수 이름
         - name: deployment.env[2].value
           value: ""  # SECRET_KEY: AI Service용 시크릿 키
   destination:
