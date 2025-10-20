@@ -88,27 +88,40 @@ git push origin main
 → ArgoCD가 자동으로 감지하여 **GCP**에 배포
 → 모든 서비스가 하나의 관리형 PostgreSQL 데이터베이스 공유
 
-## 핵심 특징
+## CI/CD 동작 과정
 
-### Development 환경
-- **개별 데이터베이스**: 각 서비스마다 독립적인 PostgreSQL 인스턴스
-- **격리된 환경**: 개발 및 테스트를 위한 완전한 서비스 격리
-- **카카오 클라우드**: 비용 효율적인 개발 환경 제공
+### Development (develop)
+- 트리거: 각 서비스 레포지토리 dev 브랜치 push
+- 동작:
+  - GitHub Actions가 Docker 이미지 빌드 및 Docker Hub push (태그: {sha}, latest)
+  - Manifest 저장소 develop 브랜치의 charts/loventure/values.yaml 내 각 서비스 이미지 태그 업데이트
+  - ArgoCD가 develop 브랜치 감시 → 개발 클러스터로 자동 배포
+- 환경 변수:
+  - 각 서비스별 개별 DB 사용 → values.yaml 또는 Parameters에 URL/USER/PASSWORD 설정
 
-### Production 환경
-- **관리형 데이터베이스**: 모든 서비스가 하나의 고가용성 PostgreSQL 공유
-- **고가용성 (HA)**: 다중 AZ 배포로 99.95% 가용성 보장
-- **재해복구 (DR)**: 자동 백업 및 크로스 리전 복제로 데이터 보호
-- **CDC 파이프라인**: Change Data Capture를 통한 실시간 데이터 동기화 및 분석
-- **확장성**: GCP의 관리형 서비스로 자동 스케일링 및 백업
-- **외부 접근**: Ingress를 통한 안전한 외부 API 접근 (api.loventure.us)
-- **프로덕션급 안정성**: 모니터링, 로깅, 알림 시스템 통합
+### Production (main)
+- 트리거: Manifest main 브랜치 변경 (또는 develop → main 머지)
+- 동작:
+  - ArgoCD가 main 브랜치 감시 → umbrella 차트(loventure)로 전체 서비스 동기화/배포
+  - 관리형 PostgreSQL을 사용하므로 in-cluster DB 설치 없음
+- 환경 변수(ArgoCD Parameters로 설정):
+  - gateway.jwtSecret
+  - auth-service.deployment.env[1..3] (DB URL/USER/PASSWORD)
+  - content-service.deployment.env[1..3]
+  - course-service.deployment.env[1..3]
+  - territory-service.deployment.env[1..3]
+  - ai-service.deployment.env[2] (SECRET_KEY)
 
-### 공통 특징
-- **완전한 GitOps**: ArgoCD가 자기 자신을 Git에서 관리
-- **Helm 기반**: 모든 애플리케이션을 Helm 차트로 관리
-- **자동 배포**: Git push만으로 자동 배포
-- **RBAC 보안**: ArgoCD default 프로젝트로 권한 관리
-- **일관성**: ArgoCD와 애플리케이션을 동일한 방식으로 관리
+### 이미지 태그 정책
+- Dev: 각 서비스 CI가 {sha}로 태그 빌드/푸시, develop의 values에 반영
+- Prod: 필요한 경우 develop의 {sha}를 main에 반영하여 동일 이미지 사용 보장
+
+### 운영 팁
+- 변경 후: git push 후 ArgoCD UI에서 loventure-prod Sync 상태 확인
+- 강제 동기화: `argocd app sync loventure-prod` 또는 kubectl patch operation 사용
+- 롤백: ArgoCD Application의 History에서 원하는 Revision으로 Rollback 가능
+
+
+
 
 
