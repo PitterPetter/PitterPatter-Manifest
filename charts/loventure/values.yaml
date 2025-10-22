@@ -15,7 +15,7 @@ gateway:
     replicaCount: 1
     image:
       repository: gateway
-      tag: "98c3961"
+      tag: "10113be"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -224,7 +224,7 @@ territory-service:
     replicaCount: 1
     image:
       repository: territory-service
-      tag: "65cc490"
+      tag: "8615390"
       pullPolicy: IfNotPresent
     resources:
       limits:
