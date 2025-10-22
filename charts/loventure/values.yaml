@@ -15,7 +15,7 @@ gateway:
     replicaCount: 1
     image:
       repository: gateway
-      tag: "7fdaaaa"
+      tag: "24a1059"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -77,7 +77,7 @@ auth-service:
     replicaCount: 1
     image:
       repository: auth-service
-      tag: "ab5525f"
+      tag: "1066640"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -107,7 +107,7 @@ content-service:
     replicaCount: 1
     image:
       repository: content-service
-      tag: "8056f67"
+      tag: "b3a705d"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -137,7 +137,7 @@ course-service:
     replicaCount: 1
     image:
       repository: course-service
-      tag: "8a235b8"
+      tag: "47a47cb"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -196,7 +196,7 @@ ai-service:
     replicaCount: 1
     image:
       repository: ai-service
-      tag: "5306fb7"
+      tag: "77abc3f"
       pullPolicy: IfNotPresent
     resources:
       limits:
@@ -224,7 +224,7 @@ territory-service:
     replicaCount: 1
     image:
       repository: territory-service
-      tag: "8615390"
+      tag: "d142540"
       pullPolicy: IfNotPresent
     resources:
       limits:
