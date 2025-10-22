@@ -12,7 +12,7 @@ gateway:
   deployment:
     image:
       repository: gateway
-      tag: "24a1059"
+      tag: "c4ebf70"
       pullPolicy: IfNotPresent
   resources:
     limits:
